@@ -40,7 +40,7 @@ router.get("/auth/status", (req, res) => {
 
 router.get("/auth/token", (req, res) => {
     const authToken = req.cookies?.jwt || null;
-    res.json({ token: authToken });
+    res.status(200).json({ token: authToken });
 });
 
 router.post("/auth/logout", (req, res) => {

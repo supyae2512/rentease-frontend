@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
     console.log("Auth JS loaded");
-    const token = getToken();
-    console.log("Auth token on load:", token);
     const userMenu = document.getElementById("user-menu");
 
     if (isAuthenticated() === true) {

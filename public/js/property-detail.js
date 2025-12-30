@@ -31,8 +31,9 @@ $(document).ready(function () {
     });
 
     // Property Delete 
-    $('#id_property_delete').click(function() {
+    $('#id_property_delete').click(async function() {
 
+        const token = await getToken();
         Swal.fire({
             title: "",
             text: 'Are you sure you want to delete this property?',
@@ -46,7 +47,7 @@ $(document).ready(function () {
                     url: `${window.APP_CONFIG.BACKEND_URL}/api/property/${propertyId}`,
                     method: "DELETE",
                     headers: {
-                        'Authorization': 'Bearer ' + getToken()
+                        'Authorization': 'Bearer ' + token
                     },
                     success: function () {
                         Swal.fire({

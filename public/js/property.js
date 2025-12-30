@@ -107,7 +107,7 @@
                                                         </li>
                                                         <li>
                                                             <a href="/property/${item.id}" title="Details" data-id="${item.id}" class="btn-view-property">
-                                                                <i class="flaticon-add"></i>
+                                                                <i class="flaticon-expand"></i>
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -115,7 +115,9 @@
                                             </div>
                                             <div class="product-info-bottom">
                                                 <div class="product-price">
-                                                    <span>$${item.price}</span>
+                                                    <span>
+                                                    ${(item.currency === 'JPY') ? "¥" : "$"}
+                                                    ${item.price}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -154,7 +156,9 @@
                                     </ul>
                                 </div>
                                 <div class="product-price">
-                                    <span>$${item.price}</span>
+                                    <span>
+                                    ${(item.currency === 'JPY') ? "¥" : "$"}
+                                    ${item.price}</span>
                                 </div>
                             </div>
 
@@ -186,7 +190,7 @@
                                     </li>
                                     <li>
                                         <a href="/property/${item.id}" title="Details">
-                                            <i class="flaticon-add"></i>
+                                            <i class="flaticon-expand"></i>
                                         </a>
                                     </li>
                                 </ul>
@@ -238,7 +242,7 @@
     });
 
     // Add new property
-    $(".cl_btn_property").on("click", function (e) {
+    $(".cl_btn_property").on("click", async function (e) {
         e.preventDefault();
 
         if ($("#input_title").val().trim() === "" || 
@@ -313,11 +317,12 @@
 
         console.log(">>> Sending JSON payload:", JSON.stringify(payload));
 
+        const token = await getToken();
         $.ajax({
             url: API_URL + "/api/property/create",
             type: "POST",
             headers: {
-                "Authorization": "Bearer " + getToken()
+                "Authorization": "Bearer " + token 
             },
             contentType: "application/json",
             data: JSON.stringify(payload),
@@ -327,10 +332,10 @@
                     text: 'Property created successfully!',
                     icon: 'info'
                 });
-                console.log("Created property ID:", res.id);
+                console.log("Created property ID:", res.data.id);
                 var mediaTab = new bootstrap.Tab(document.querySelector('#tabMedia'));
                 mediaTab.show();
-                $('input[name="propertyId"]').val(res.id);
+                $('input[name="propertyId"]').val(res.data.id);
             },
             error: function (xhr) {
                 Swal.fire({
