@@ -14597,4 +14597,19 @@ input.cart-plus-minus-box {
     END
 ---------------------------------------------------- */
 
+
+/** Custom CSS **/
+
+.is-invalid {
+  border: 2px solid #dc3545 !important;
+  background-color: #ffffff;
+}
+
+.product-img img {
+  min-width: 283px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
 /*# sourceMappingURL=style.css.map */
